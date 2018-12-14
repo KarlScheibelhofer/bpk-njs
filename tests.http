@@ -1,0 +1,28 @@
+GET http://localhost:3000/health/hello HTTP/1.1
+###
+GET http://localhost:3000/health/now HTTP/1.1
+###
+POST http://localhost:3000/health/now HTTP/1.1
+###
+GET http://localhost:3000/bpk/now HTTP/1.1
+###
+GET http://localhost:3000/bpk/pnr/1 HTTP/1.1
+###
+POST http://localhost:3000/bpk/pnr/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "pnr": "3",
+    "bpk": "bkp24svn567r3###"
+}
+###
+GET http://localhost:3000/bpk/pnr/2 HTTP/1.1
+###
+GET http://localhost:3000/bpk/pnr/3 HTTP/1.1
+###
+GET http://localhost:3000/bpk/pnr HTTP/1.1
+###
+DELETE http://localhost:3000/bpk/pnr/3 HTTP/1.1
+###
+DELETE http://localhost:3000/bpk/pnr HTTP/1.1
+###
