@@ -1,4 +1,4 @@
-# Project Title
+# Example Web API using Nodejs, Express and PostgreSQL
 
 This is a simple example using nodejs to implement a Web API using a PostgreSQL DB as backend.
 
