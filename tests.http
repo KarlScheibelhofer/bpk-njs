@@ -1,28 +1,54 @@
+### here go the basic calls that should work even without database
 GET http://localhost:3000/health/hello HTTP/1.1
 ###
 GET http://localhost:3000/health/now HTTP/1.1
 ###
 POST http://localhost:3000/health/now HTTP/1.1
 ###
+
+### here is the first query that just gets the current time from the database
 GET http://localhost:3000/bpk/now HTTP/1.1
 ###
-GET http://localhost:3000/bpk/pnr/1 HTTP/1.1
+
+### now come the real API query which do SELEST, INSERT, DELETE in the database
+### get all available entries from table bpk
+GET http://localhost:3000/bpk/pnr HTTP/1.1
+### delete alle entries in the table bpk
+DELETE http://localhost:3000/bpk/pnr HTTP/1.1
+### create three entries
+POST http://localhost:3000/bpk/pnr/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "pnr": "1",
+    "bpk": "bkp1"
+}
+###
+POST http://localhost:3000/bpk/pnr/2 HTTP/1.1
+Content-Type: application/json
+
+{
+    "pnr": "2",
+    "bpk": "bkp2"
+}
 ###
 POST http://localhost:3000/bpk/pnr/3 HTTP/1.1
 Content-Type: application/json
 
 {
     "pnr": "3",
-    "bpk": "bkp24svn567r3###"
+    "bpk": "bkp3"
 }
+### now get the individual entries
+GET http://localhost:3000/bpk/pnr/1 HTTP/1.1
 ###
 GET http://localhost:3000/bpk/pnr/2 HTTP/1.1
 ###
 GET http://localhost:3000/bpk/pnr/3 HTTP/1.1
+### now delete individual entries
+DELETE http://localhost:3000/bpk/pnr/1 HTTP/1.1
 ###
-GET http://localhost:3000/bpk/pnr HTTP/1.1
+DELETE http://localhost:3000/bpk/pnr/2 HTTP/1.1
 ###
 DELETE http://localhost:3000/bpk/pnr/3 HTTP/1.1
-###
-DELETE http://localhost:3000/bpk/pnr HTTP/1.1
 ###
