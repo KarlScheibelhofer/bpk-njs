@@ -7,8 +7,8 @@ const router = express.Router()
 module.exports = router
 
 router.get('/now', async (req, res) => {
-    const { rows } = await db.query('SELECT NOW()')
-    res.send(rows[0])
+  const { rows } = await db.query('SELECT NOW()')
+  res.send(rows[0])
 })
 
 // get all
@@ -36,14 +36,14 @@ router.get('/pnr/:pnr', async (req, res) => {
 
 // insert new
 router.post('/pnr/:pnr', async (req, res) => {
-    console.log('POST /snvr/:pnr');
-    const { pnr } = req.params
-    const bpk  = req.body.bpk
-    await db.query('INSERT INTO bpk(pnr, bpk) VALUES($1, $2) RETURNING id', [pnr, bpk])
+  console.log('POST /snvr/:pnr');
+  const { pnr } = req.params
+  const bpk = req.body.bpk
+  await db.query('INSERT INTO bpk(pnr, bpk) VALUES($1, $2) RETURNING id', [pnr, bpk])
     .then((qres) => {
       console.log('POST /snvr/:pnr, qres: %s', qres);
       const { id } = qres.rows[0];
-      result = { 
+      result = {
         "id": id,
         "pnr": pnr,
         "bpk": bpk,
@@ -61,9 +61,9 @@ router.delete('/pnr/:pnr', async (req, res) => {
   console.log('DELETE /snvr/:pnr');
   const { pnr } = req.params
   const result = await db.query('DELETE FROM bpk WHERE pnr = $1', [pnr])
-  .then((qres) => res.send(qres))
-  .catch(e => {
-    console.log(e)
-    res.sendStatus(500)
-  })
+    .then((qres) => res.send(qres))
+    .catch(e => {
+      console.log(e)
+      res.sendStatus(500)
+    })
 })

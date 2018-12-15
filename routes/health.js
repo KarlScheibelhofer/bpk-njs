@@ -5,13 +5,13 @@ const router = express.Router()
 module.exports = router
 
 router.get('/hello', async (req, res) => {
-    res.send('Hello World!')
+  res.send('Hello World!')
 })
 
 router.get('/now', (req, res) => {
-    res.send(new Date().toLocaleString())
+  res.send(new Date().toLocaleString())
 })
 
 router.post('/now', (req, res) => {
-    res.send(new Date().toLocaleString())
+  res.send(new Date().toLocaleString())
 })
