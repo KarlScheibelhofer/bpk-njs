@@ -21,26 +21,27 @@ router.get('/pnr', async (req, res) => {
 
 // delete all
 router.delete('/pnr', async (req, res) => {
-  console.log('DELETE /pnr');
+  console.log('DELETE /pnr')
   const { rows } = await db.query('TRUNCATE bpk')
   res.send(rows)
 })
 
 // get one
 router.get('/pnr/:pnr', async (req, res) => {
-  console.log('GET /pnr/:pnr');
+  console.log('GET /pnr/:pnr')
   const { pnr } = req.params
   const bpk = req.body.bpk
   const { rows } = await db.query('SELECT * FROM bpk WHERE pnr = $1', [pnr])
   if (rows.length == 0) {
     res.sendStatus(404)
+  } else {
+    res.send(rows.slice(-1)[0])
   }
-  res.send(rows.slice(-1)[0])
 })
 
 // insert new
 router.post('/pnr/:pnr', async (req, res) => {
-  console.log('POST /pnr/:pnr');
+  console.log('POST /pnr/:pnr')
   const { pnr } = req.params
   const bpk = req.body.bpk
   const { id } = await db.query('INSERT INTO bpk(pnr, bpk) VALUES($1, $2) RETURNING id', [pnr, bpk])
@@ -56,8 +57,13 @@ router.post('/pnr/:pnr', async (req, res) => {
 
 // delete all entries with matching pnr
 router.delete('/pnr/:pnr', async (req, res) => {
-  console.log('DELETE /pnr/:pnr');
+  console.log('DELETE /pnr/:pnr')
   const { pnr } = req.params
-  await db.query('DELETE FROM bpk WHERE pnr = $1', [pnr])
-  res.sendStatus(200)
+  const { rows } = await db.query(
+    'DELETE FROM bpk WHERE id = (SELECT id FROM bpk WHERE pnr = $1 ORDER BY id DESC LIMIT 1) RETURNING id', [pnr])
+  if (rows.length == 0) {
+    res.sendStatus(404)
+  } else {
+    res.sendStatus(200)
+  }
 })
